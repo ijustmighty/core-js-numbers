@@ -275,7 +275,15 @@ function getFibonacciNumber(index) {
   if (index <= 1) {
     return index;
   }
-  return getFibonacciNumber(index - 1) + getFibonacciNumber(index - 2);
+  let fib1 = 0;
+  let fib2 = 1;
+  let num = 0;
+  for (let i = 2; i <= index; i += 1) {
+    num = fib1 + fib2;
+    fib1 = fib2;
+    fib2 = num;
+  }
+  return num;
 }
 
 /**
@@ -290,11 +298,11 @@ function getFibonacciNumber(index) {
  *   1  => 1
  */
 function getSumToN(n) {
-  let end = 0;
-  for (let start = 1; start <= n; start + 1) {
-    end += start;
+  let sum = 0;
+  for (let i = 1; i <= n; i += 1) {
+    sum += i;
   }
-  return end;
+  return sum;
 }
 
 /**
@@ -311,7 +319,7 @@ function getSumToN(n) {
 function getSumOfDigits(num) {
   const a = String(num).split('').map(Number);
   let sum = 0;
-  for (let i = 0; i < a.length; i + 1) {
+  for (let i = 0; i < a.length; i += 1) {
     sum += a[i];
   }
   return sum;
@@ -329,8 +337,17 @@ function getSumOfDigits(num) {
  *   15  => false
  */
 function isPowerOfTwo(num) {
-  const a = num % 2;
-  return a === 0;
+  let a = num;
+  if (a <= 0) {
+    return false;
+  }
+  while (a > 1) {
+    if (a % 2 !== 0) {
+      return false;
+    }
+    a /= 2;
+  }
+  return true;
 }
 
 /**
@@ -343,8 +360,9 @@ function isPowerOfTwo(num) {
  *   0 => 0
  *   Math.PI / 2 => 1
  */
-function getSine(/* num */) {
-  throw new Error('Not implemented');
+function getSine(num) {
+  const sin = Math.sin(num);
+  return sin;
 }
 
 /**
@@ -358,8 +376,9 @@ function getSine(/* num */) {
  * 255, 16 => 'ff'
  * 2, 2    => '10'
  */
-function numberToStringInBase(/* number, base */) {
-  throw new Error('Not implemented');
+function numberToStringInBase(number, base) {
+  const a = number.toString(base);
+  return a;
 }
 
 /**
@@ -372,8 +391,8 @@ function numberToStringInBase(/* number, base */) {
  * @example:
  * 12345, 2    => '1.23e+4'
  */
-function toExponential(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toExponential(number, fractionDigits) {
+  return number.toExponential(fractionDigits);
 }
 
 /**
@@ -387,8 +406,8 @@ function toExponential(/* number, fractionDigits */) {
  * 12345, 2    => '12345.00'
  * 12.345, 1   => '12.3'
  */
-function toFixed(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toFixed(number, fractionDigits) {
+  return number.toFixed(fractionDigits);
 }
 
 /**
@@ -403,8 +422,8 @@ function toFixed(/* number, fractionDigits */) {
  * 12345, 7    => '12345.00'
  * 12.345, 4   => '12.35'
  */
-function toPrecision(/* number, precision */) {
-  throw new Error('Not implemented');
+function toPrecision(number, precision) {
+  return number.toPrecision(precision);
 }
 
 /**
@@ -417,8 +436,8 @@ function toPrecision(/* number, precision */) {
  * new Number(5) => 5
  * Number(-5)    => -5
  */
-function getNumberValue(/* number */) {
-  throw new Error('Not implemented');
+function getNumberValue(number) {
+  return number.valueOf();
 }
 
 /**
@@ -436,8 +455,8 @@ function getNumberValue(/* number */) {
  * 5        => true
  * '5'      => false
  */
-function isNumber(/* number */) {
-  throw new Error('Not implemented');
+function isNumber(number) {
+  return !Number.isNaN(parseFloat(number)) && Number.isFinite(number);
 }
 
 /**
@@ -451,8 +470,8 @@ function isNumber(/* number */) {
  * 5.1  => false
  * '5'  => false
  */
-function isInteger(/* number */) {
-  throw new Error('Not implemented');
+function isInteger(number) {
+  return Number.isInteger(number);
 }
 
 /**
@@ -465,8 +484,9 @@ function isInteger(/* number */) {
  * '4.567abcdefgh' => 4.567
  * 'abcdefgh'      => NaN
  */
-function getFloatOnString(/* str */) {
-  throw new Error('Not implemented');
+function getFloatOnString(str) {
+  const a = Number.parseFloat(str);
+  return Number.isNaN(a) ? NaN : a;
 }
 
 /**
@@ -483,8 +503,12 @@ function getFloatOnString(/* str */) {
  * '1.234', 2           => 1
  * '10', 8              => 8
  */
-function getIntegerOnString(/* str, base */) {
-  throw new Error('Not implemented');
+function getIntegerOnString(str, base) {
+  const a = Number.parseInt(str, base);
+  if (Number.isNaN(a)) {
+    return NaN;
+  }
+  return Math.trunc(a);
 }
 
 /**
